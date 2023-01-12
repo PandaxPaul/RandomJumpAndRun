@@ -1,0 +1,11 @@
+name: RandomJumpNRun
+version: '${project.version}'
+main: de.pandaxpaul.randomjumpnrun.RandomJumpNRun
+api-version: 1.19
+authors: [ pandaxpaul ]
+description: Jump and Runthat random creates
+website: https://pandaxpaul.de
+
+commands:
+  jnr:
+    permission: JumpandRun.commands

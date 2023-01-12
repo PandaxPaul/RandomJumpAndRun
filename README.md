@@ -13,7 +13,7 @@ Außerdem ist das Plugin Hardcode!
 # INFOS:
 
 **Downloade das Plugin von Spigot**
-> [Klick mich](https://www.spigotmc.org/resources/twitchsync.90589/)
+> [Klick mich](https://www.spigotmc.org/resources/random-jump-and-run.107352/)
 
 
 **Verwendung von Commands:**

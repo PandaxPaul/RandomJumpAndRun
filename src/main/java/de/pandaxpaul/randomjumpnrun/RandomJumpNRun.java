@@ -4,31 +4,24 @@ import de.pandaxpaul.randomjumpnrun.coammands.JnRCommands;
 import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public final class RandomJumpNRun extends JavaPlugin implements Listener {
 
     private static RandomJumpNRun plugin;
     private boolean endeverytickRunnable;
-
     private boolean runfirsttime = true;
-
-
-    private static int newx;
-    private static int newy;
-    private static int newz;
+    private static int newx, newy, newz;
     private static boolean start;
-
-    private int oldBlockx;
+    private int oldBlockx, oldBlockz;
     private double oldBlocky;
-    private int oldBlockz;
-
     private static Player playertostart;
 
     public static void startJnR(boolean bool, Player player){
@@ -71,12 +64,9 @@ public final class RandomJumpNRun extends JavaPlugin implements Listener {
             @Override
             public void run() {
                 Location playerLocation = player.getLocation();
-                double xdouble = playerLocation.getX();
-                double ydouble = playerLocation.getY();
-                double zdouble = playerLocation.getZ();
-                int x = (int) xdouble;
-                int y = (int) ydouble;
-                int z = (int) zdouble;
+                int x = (int) getX(player);
+                int y = (int) getY(player);
+                int z = (int) getZ(player);
 
                 if(y <= newy - 1.5 ){
                     Location teleportLocation = new Location(playerLocation.getWorld(), oldBlockx, oldBlocky + 1, oldBlockz);
@@ -107,14 +97,12 @@ public final class RandomJumpNRun extends JavaPlugin implements Listener {
                    /* Location playerLocation = playertostart.getLocation();
                     Location teleportLocation = new Location(playerLocation.getWorld(), (int) playerLocation.getX(), (int) playerLocation.getY() + 6, (int) playerLocation.getZ());
                     playertostart.teleport(teleportLocation);
-
                     int greenX = (int) playerLocation.getX();
                     int greenY = (int) playerLocation.getY()  + 5;
                     int greenZ = (int) playerLocation.getZ();
-
-
                     playertostart.getLocation().getWorld().getBlockAt( greenX, greenY, greenZ).setType(Material.GREEN_CONCRETE);
                     getLogger().info("spawned block at " + greenX +  " " + greenY + " " + greenZ); */
+
                     nextblock(playertostart);
                     start = false;
 
@@ -127,9 +115,21 @@ public final class RandomJumpNRun extends JavaPlugin implements Listener {
 
     }
 
-    public void OnJoin(PlayerJoinEvent event){
-        Player player = event.getPlayer();
-        nextblock(player);
+
+    public double getX(Player player){
+        Location playerLocation = player.getLocation();
+        double x = playerLocation.getX();
+        return x;
+    }
+    public double getY(Player player){
+        Location playerLocation = player.getLocation();
+        double y = playerLocation.getY();
+        return y;
+    }
+    public double getZ(Player player){
+        Location playerLocation = player.getLocation();
+        double z = playerLocation.getZ();
+        return z;
     }
 
 
@@ -140,9 +140,9 @@ public final class RandomJumpNRun extends JavaPlugin implements Listener {
         Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
             public void run() {
                 Location playerLocation = player.getLocation();
-                double x = playerLocation.getX();
-                double y = playerLocation.getY();
-                double z = playerLocation.getZ();
+                double x = getX(player);
+                double y = getY(player);
+                double z = getZ(player);
 
                 if(runfirsttime == true) {
                     oldBlockx = (int) x;
